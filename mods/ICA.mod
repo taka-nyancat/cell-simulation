@@ -38,9 +38,9 @@ UNITS {
 }
 
 PARAMETER {
-    v		(mV)
-    eca	        = 120	(mV)
-    gcabar	= 0.005 (S/cm2)
+    v(mV)
+    eca = 120(mV)
+    gcabar = 5.0(mS/cm2)
 }
 
 
@@ -50,7 +50,7 @@ ASSIGNED {
 }
 
 BREAKPOINT {
-     s_inf = 1/(1+exp(-(v+10)/2))
-		   :original  s_inf = 1/(1+exp(-(v+25)/5))
+    s_inf = 1/(1+exp(-(v+10)/2))
+	:original  s_inf = 1/(1+exp(-(v+25)/5))
     ica = gcabar * s_inf * (v-eca)
 }

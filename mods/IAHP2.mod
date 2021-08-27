@@ -47,7 +47,7 @@ UNITS {
 
 PARAMETER {
     v		(mV)
-    gahpbar = 0.004 (S/cm2)
+    gahpbar = 4 (mS/cm2)
     eahp    = -140 (mV)
     ctau    = 0.0000125 (1/ms)
     a       = 0.000033 (mM)
@@ -66,7 +66,7 @@ ASSIGNED {
 }
 
 BREAKPOINT { 
-    :q = cai / (30 + cai)
-    q = a * (cai)^co / (b^co + cai^co)
+    q = cai / (30 + cai)
+    :q = a * (cai)^co / (b^co + cai^co)
     ik = gahpbar * q * (v - eahp)
 }

@@ -50,16 +50,16 @@ PARAMETER {
 	kt	= 0	(mM/ms)		: dummy
 	kd	= 0	(mM)		: dummy
 	a	= 0.002	
-        Bt      = 1.2e-2  (mM)           :total ca buffer =50(binding ratio)x cainf
-        kBout  = 1.02e    (mM/ms)           :determin ca increase from B
-        kBin   =0.05      (mM/ms/mM)    : time const =20ms order
-        bbrini = 0.99
+    Bt      = 1.2e-2  (mM)           :total ca buffer =50(binding ratio)x cainf
+    kBout  = 1.02e    (mM/ms)           :determin ca increase from B
+    kBin   =0.05      (mM/ms/mM)    : time const =20ms order
+    bbrini = 0.99
 
 }
  
 STATE {
 	cai		(mM)
-        bbr             :bind ratio in ca-buffer 
+    bbr             :bind ratio in ca-buffer 
 
         
        
@@ -67,15 +67,16 @@ STATE {
 
 INITIAL {
 	cai = cainf
-     :   bbr = 0.98  : 49/50
-        bbr=bbrini
+    :bbr = 0.98
+	: 49/50
+    bbr=bbrini
 
 }
 
 ASSIGNED {
 	ica		(mA/cm2)
 	drive_channel	(mM/ms)
-        pump_ch (mM/ms)
+    pump_ch (mM/ms)
 }
 	
 BREAKPOINT {
@@ -87,9 +88,9 @@ DERIVATIVE state {
 	:drive_channel =  - (10000) * ica / (2 * FARADAY * depth)
 	drive_channel = - a * ica
 	if (drive_channel <= 0.) { drive_channel = 0. }	: cannot pump inward  > not pump
-         pump_ch= (cai-cainf)*ctau*(-1.0)
-        if (pump_ch >=0.) {pump_ch = 0 } : cannnot pump inward  
+    pump_ch= (cai-cainf)*ctau*(-1.0)
+    if (pump_ch >=0.) {pump_ch = 0 } : cannnot pump inward  
 	:cai' = drive_channel + (cainf-cai)*ctau
-         cai' = drive_channel + pump_ch + 2*kBout*Bt*bbr - cai*cai*kBin*Bt*(1-bbr) :new ca dynamics
-         bbr'= -kBout*bbr+cai*cai*kBin*(1-bbr)   :new buffer dynamics
+    cai' = drive_channel + pump_ch + 2*kBout*Bt*bbr - cai*cai*kBin*Bt*(1-bbr) :new ca dynamics
+    bbr'= -kBout*bbr+cai*cai*kBin*(1-bbr)   :new buffer dynamics
 }
